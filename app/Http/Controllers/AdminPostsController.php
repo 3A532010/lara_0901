@@ -28,8 +28,10 @@ class AdminPostsController extends Controller
         $data = ['post' => $post];
         return view('admin.posts.edit', $data);
     }
+
 public function store()
 {
+
 }
 
     public function update(Request $request, $id)
@@ -38,5 +40,11 @@ public function store()
         $post->update($request->all());
         return redirect()->route('admin.posts.index');
     }
+    public function destroy($id)
+    {
+        Post::destroy($id);
+        return redirect()->route('admin.posts.index');
+    }
+
 
 }
