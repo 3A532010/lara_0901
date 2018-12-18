@@ -3,19 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\PostRequest;
-//use App\Http\Requests;
-use App\Post;
 
+use App\Http\Requests\PostRequest;
+use App\Post;
 
 class AdminPostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'DESC')->get();
-        $data = ['posts' => $posts];
+        $post=Post::orderBy('created_at', 'DESC')->get();
+        $data=['posts'=>$post];
         return view('admin.posts.index', $data);
-        //return view('admin.posts.index');
     }
 
     public function create()
@@ -25,20 +23,19 @@ class AdminPostsController extends Controller
 
     public function edit($id)
     {
-        //$data = ['id' => $id];
-        $post = Post::find($id);
+        $post=Post::find($id);
         $data = ['post' => $post];
         return view('admin.posts.edit', $data);
     }
-
-    public function store(PostRequest $request){
-        //
-    }
-
     public function update(PostRequest $request, $id)
     {
-        $post = Post::find($id);
+        $post=Post::find($id);
         $post->update($request->all());
+        return redirect()->route('admin.posts.index');
+    }
+    public function store(PostRequest $request)
+    {
+        Post::create($request->all());
         return redirect()->route('admin.posts.index');
     }
     public function destroy($id)
