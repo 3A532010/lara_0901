@@ -10,7 +10,10 @@ class AdminPostsController extends Controller
 {
     public function index()
     {
-        return view('admin.posts.index');
+        $posts = Post::orderBy('created_at', 'DESC')->get();
+        $data = ['posts' => $posts];
+        return view('admin.posts.index', $data);
+        //return view('admin.posts.index');
     }
 
     public function create()
