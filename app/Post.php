@@ -13,4 +13,11 @@ class Post extends Model
         'content',
         'is_feature',
     ];
+
+    public function store(Request $request)
+    {
+        Post::create($request->all());
+        return redirect()->route('admin.posts.index');
+    }
+
 }
